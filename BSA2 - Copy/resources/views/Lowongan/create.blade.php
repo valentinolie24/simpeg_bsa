@@ -1,0 +1,152 @@
+@extends('../layout/' . $layout)
+@section('subcontent')
+    <div class="intro-y flex items-center mt-8">
+        <h2 class="text-lg font-medium mr-auto">Halaman Lowongan</h2>
+    </div>
+    <div class="grid grid-cols-12 gap-6 mt-5">
+        <div class="intro-y col-span-12 lg:col-span-6">
+            <div class="intro-y box">
+                <div
+                    class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
+                    <h2 class="font-medium text-base mr-auto">Tambah Lowongan</h2>
+                </div>
+                <div id="form-validation" class="p-5">
+                    <div class="preview">
+                        <form action="{{ route('lowongan.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <!-- BEGIN: Validation Form -->
+                            <div class="input-form mt-3">
+                                <label for="posisi" class="form-label w-full flex flex-col sm:flex-row">
+                                    Jabatan <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
+                                </label>
+                                <select id="posisi" name="posisi"
+                                    class="form-select @error('posisi') border-danger @enderror">
+                                    <option selected disabled hidden value="">Pilih Jabatan</option>
+                                    @foreach ($jabatans as $jabatan)
+                                        <option value="{{ $jabatan->nama_jabatan }}">{{ $jabatan->nama_jabatan }}</option>
+                                    @endforeach
+                                </select>
+                                @error('posisi')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="input-form mt-3">
+                                <label for="deskripsi" class="form-label w-full flex flex-col sm:flex-row">
+                                    Deskripsi <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
+                                </label>
+                                <input id="deskripsi" type="text" name="deskripsi"
+                                    class="form-control @error('deskripsi') border-danger @enderror" placeholder="Deskripsi"
+                                    value="{{ old('deskripsi') }}">
+                                @error('deskripsi')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="input-form mt-3">
+                                <label for="gaji" class="form-label w-full flex flex-col sm:flex-row">
+                                    Kisaran Gaji <span
+                                        class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
+                                </label>
+                                <select id="gaji" name="gaji"
+                                    class="mt-2 sm:mr-2 form-control @error('gaji') border-danger @enderror"
+                                    aria-label="Default select example">
+                                    <option selected disabled hidden value="">Pilih kisaran gaji</option>
+                                    <option value="Rp.1.000.000 - Rp.2.000.000">Rp.1.000.000 - Rp.2.000.000</option>
+                                    <option value="Rp.2.000.000 - Rp.3.000.000">Rp.2.000.000 - Rp.3.000.000</option>
+                                    <option value="Rp.3.000.000 - Rp.4.000.000">Rp.3.000.000 - Rp.4.000.000</option>
+                                    <option value="Rp.4.000.000 - Rp.5.000.000">Rp.4.000.000 - Rp.5.000.000</option>
+                                </select>
+                                @error('gaji')
+                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="input-form mt-3 w-72">
+                                <label for="foto" class="form-label w-full flex flex-col sm:flex-row">
+                                    Foto <span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
+                                </label>
+                                <div
+                                    class="border-2 border-dashed shadow-sm border-slate-200/60 dark:border-darkmode-400 rounded-md p-5">
+                                    <div class="text-slate-500 text-center font-medium mt-2">
+                                        <img id="previewFoto" class="rounded-md" alt="Preview Foto"
+                                            src="{{ asset('dist/images/placeholder.jpg') }}">
+                                    </div>
+                                    <div class="mx-auto cursor-pointer relative mt-5">
+                                        <button type="button" class="btn btn-primary w-full"
+                                            onclick="document.getElementById('inputFoto').click()">Pilih
+                                            Foto</button>
+                                        <input id="foto" type="file" name="foto"
+                                            class="w-full h-full top-0 left-0 absolute opacity-0"
+                                            onchange="previewImage(this)">
+                                        @if ($errors->has('foto'))
+                                            <div class="alert alert-outline-danger alert-dismissible show flex items-center mb-2"
+                                                role="alert">
+                                                <i data-lucide="alert-octagon" class="w-6 h-6 mr-2"></i>
+                                                {{ $errors->first('foto') }}
+                                                <button type="button" class="btn-close" data-tw-dismiss="alert"
+                                                    aria-label="Close">
+                                                    <i data-lucide="x" class="w-4 h-4"></i>
+                                                </button>
+                                            </div>
+                                        @endif
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="text-right mt-5">
+                                <a id="btn_cancel"
+                                    class="btn btn-outline-secondary w-24
+                                    mr-1">Batal</a>
+                                <button id="btn_save" type="submit" class="btn btn-primary w-24">Simpan</button>
+                            </div>
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- END: Validation Form -->
+            </div>
+        </div>
+    </div>
+    <script src="{{ asset('js/preview_foto.js') }}"></script>
+    {{-- <script src="{{ asset('js/validation.js') }}"></script> --}}
+@endsection
+
+@section('script')
+    <script>
+        (function() {
+            async function save() {
+                // Loading state
+                $('#btn_save').html(
+                    '<i data-loading-icon="tail-spin" data-color="white" class="w-5 h-5 mx-auto"></i>')
+                tailwind.svgLoader()
+                await helper.delay(1500)
+
+                // Redirect to register page
+                window.location.href = "";
+            }
+
+            $('#btn_save').on('click', function() {
+                save()
+            })
+
+            async function cancel() {
+                // Loading state
+                $('#btn_cancel').html(
+                    '<i data-loading-icon="tail-spin" data-color="black" class="w-5 h-5 mx-auto"></i>')
+                tailwind.svgLoader()
+                await helper.delay(1500)
+
+                // Redirect to register page
+                window.location.href = "{{ route('lowongan.index') }}";
+            }
+
+            $('#btn_cancel').on('click', function() {
+                cancel()
+            })
+
+        })()
+    </script>
+@endsection
