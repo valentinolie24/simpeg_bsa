@@ -136,8 +136,11 @@
                         @if (auth()->user()->role == 'pegawai')
                             <li class="p-2">
                                 <div class="font-medium">{{ $user->name }}</div>
-                                <div class="text-xs text-white/60 mt-0.5">{{ $pegawai->jabatan }}
-                                </div>
+                                @if (isset($pegawai) && $pegawai->jabatan !== null)
+                                    <div class="text-xs text-white/60 mt-0.5">{{ $pegawai->jabatan }}</div>
+                                @else
+                                    <div class="text-xs text-white/60 mt-0.5">Belum ada jabatan</div>
+                                @endif
                             </li>
                         @else
                             <li class="p-2">
@@ -146,7 +149,6 @@
                                 </div>
                             </li>
                         @endif
-
 
                         <li>
                             <hr class="dropdown-divider border-white/[0.08]">

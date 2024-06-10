@@ -445,18 +445,17 @@
                                 @endif
                             </td>
                             <td class="table-report__action w-56 text-center">
-                                @if ($calon_pegawai->tes->isNotEmpty())
-                                    @foreach ($calon_pegawai->tes as $tes)
-                                        @if ($tes->catatan)
-                                            {{ $tes->catatan }}
-                                        @else
-                                            <p class="text-center">Belum ada catatan</p>
-                                        @endif
-                                    @endforeach
+                                @php
+                                    $firstTesCatatan = $calon_pegawai->tes->first();
+                                @endphp
+
+                                @if ($firstTesCatatan && $firstTesCatatan->catatan)
+                                    {{ $firstTesCatatan->catatan }}
                                 @else
                                     <p class="text-center">Belum ada catatan</p>
                                 @endif
                             </td>
+
                         </tr>
                     </tbody>
                 </table>

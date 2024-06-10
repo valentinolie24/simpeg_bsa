@@ -32,6 +32,22 @@ class LowonganController extends Controller
         return view('lowongan.index', compact('pageTitle', 'lowongans'));
     }
 
+    public function loker()
+    {
+        // Ambil semua data lowongan dari database
+        $lowongans = Lowongan::all();
+    
+        // Jika data lowongan kosong, buat variabel $lowongan menjadi array kosong
+        if ($lowongans->isEmpty()) {
+            $lowongan = []; // Set variabel menjadi array kosong
+        }
+    
+        $pageTitle = 'Lowongan';
+    
+        // Kembalikan view dengan data yang sudah disiapkan
+        return view('lowongan.loker', compact('pageTitle', 'lowongans'));
+    }
+
     public function search(Request $request)
     {
         $keyword = $request->input('posisi');
@@ -47,6 +63,15 @@ class LowonganController extends Controller
 
         $data = Lowongan::where('posisi', 'LIKE', '%'. $Validasi['nama_pencarian'].'%')->get();
         return view('lowongan.index')->with('lowongans',$data);
+    }
+
+    public function Pencarian_notlogin(Request $request){
+        $Validasi=$request->validate([
+            'nama_pencarian' => 'required'
+        ]);
+
+        $data = Lowongan::where('posisi', 'LIKE', '%'. $Validasi['nama_pencarian'].'%')->get();
+        return view('lowongan.loker')->with('lowongans',$data);
     }
     
 

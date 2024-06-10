@@ -109,7 +109,6 @@ Route::middleware('auth')->group(function() {
     });
     Route::get('pegawai/index', [PegawaiController::class, 'index'])->name('pegawai.index');
     Route::resource('pegawai', PegawaiController::class);
-    // Route::delete('/pegawai/{pegawai}', 'PegawaiController@destroy')->name('pegawai.destroy');
     Route::get('/cari', [PegawaiController::class, 'Pencarian'])->name('cari');
     Route::get('/cari_lowongan', [LowonganController::class, 'Pencarian'])->name('cari_lowongan');
     Route::get('/cari_administrasi', [AdministrasiController::class, 'Pencarian'])->name('cari_administrasi');
@@ -139,7 +138,6 @@ Route::middleware('auth')->group(function() {
     Route::post('/pengumuman-akhir/{id}/update-tanggal-masuk', [PengumumanAkhirController::class, 'updateTanggalMasuk'])->name('pengumuman-akhir.updateTanggalMasuk');
     Route::post('/pengumuman-akhir/update-role/{id}', [PengumumanAkhirController::class, 'updateRole'])->name('pengumuman-akhir.updateRole');
 
-
     Route::get('jabatan/index', [JabatanController::class, 'index'])->name('jabatan.index');
     Route::resource('jabatan', JabatanController::class);
     Route::get('promosi/index', [PromosiController::class, 'index'])->name('promosi.index');
@@ -147,4 +145,5 @@ Route::middleware('auth')->group(function() {
     Route::get('/promosi/jabatan-lain/{pegawaiId}', [PromosiController::class, 'getJabatanLain']);
 });
 
-
+Route::get('joblist', [LowonganController::class, 'loker'])->name('lowongan.loker');
+Route::get('Pencarian_notlogin', [LowonganController::class, 'Pencarian_notlogin'])->name('lowongan.Pencarian_notlogin');

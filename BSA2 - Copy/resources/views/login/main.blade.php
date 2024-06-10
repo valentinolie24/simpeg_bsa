@@ -1,7 +1,7 @@
 @extends('../layout/' . $layout)
 
 @section('head')
-    <title>Login - Enigma - Tailwind HTML Admin Template</title>
+    <title>Login</title>
 @endsection
 
 @section('content')
@@ -44,7 +44,7 @@
                     <div class="intro-x flex text-slate-600 dark:text-slate-500 text-xs sm:text-sm mt-4">
                         <div class="flex items-center mr-auto">
                         </div>
-                        <a href="">Lupa Password?</a>
+                        <a href="{{ route('lowongan.loker') }}">Lupa Password?</a>
                     </div>
                     <div class="intro-x mt-5 xl:mt-8 text-center xl:text-left">
                         <button id="btn-login"

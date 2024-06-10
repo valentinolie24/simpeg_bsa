@@ -251,14 +251,16 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                @if ($pegawai === null)
+                                @if (isset($pegawai) && $pegawai !== null)
                                     <a href="{{ route('pegawai.create') }}" class="dropdown-item">
                                         <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Ubah Data
                                     </a>
                                 @else
-                                    <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="dropdown-item">
-                                        <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Ubah Data
-                                    </a>
+                                    @if (isset($pegawai->id) && $pegawai->id !== null)
+                                        <a href="{{ route('pegawai.edit', $pegawai->id) }}" class="dropdown-item">
+                                            <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Ubah Data
+                                        </a>
+                                    @endif
                                 @endif
                             </li>
                         </ul>

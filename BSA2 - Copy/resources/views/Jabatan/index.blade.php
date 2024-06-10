@@ -9,8 +9,7 @@
     </div>
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-5">
         <a type="button" href="javascript:;" data-tw-toggle="modal" data-tw-target="#modal_jabatan" class="btn btn-primary"
-            style="width: 150px; height: 40px;">Tambah
-            Jabatan</a>
+            style="width: 150px; height: 40px;">Tambah Jabatan</a>
         <div class="hidden md:block mx-auto text-slate-500">
 
         </div>
@@ -56,19 +55,19 @@
             </div>
         </div>
     </div>
-    <div id="modal_jabatan" class="modal" tabindex="-1" aria-hidden="true">
+    <div id="modal_jabatan" class="modal">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="text-lg font-medium mr-auto">Tambah Jabatan</h2>
-                    <button type="button" class="close" data-tw-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body p-10">
-                    <form id="jabatanForm" action="{{ route('jabatan.store') }}" method="POST"
-                        enctype="multipart/form-data">
-                        @csrf
+                <form id="jabatanForm" action="{{ route('jabatan.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h2 class="text-lg font-medium mr-auto">Tambah Jabatan</h2>
+                        <button type="button" class="close" data-tw-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body p-10">
+
                         <div class="input-form mt-3">
                             <label for="deskripsi_jabatan" class="form-label w-full flex flex-col sm:flex-row">
                                 Kode Jabatan<span class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
@@ -98,17 +97,18 @@
                             </label>
                             <textarea id="deskripsi_jabatan" type="text" name="deskripsi_jabatan"
                                 class="form-control @error('deskripsi_jabatan') border-danger @enderror" placeholder="Deskripsi Jabatan"
-                                value="{{ old('deskripsi_jabatan') }}" minlength="2"></textarea>
+                                minlength="2">{{ old('deskripsi_jabatan') }}</textarea>
                             @error('deskripsi_jabatan')
                                 <div class="text-danger mt-1">{{ $message }}</div>
                             @enderror
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary mr-2" data-tw-dismiss="modal">Tutup</button>
-                    <button type="submit" form="jabatanForm" class="btn btn-primary">Simpan</button>
-                </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary mr-2" data-tw-dismiss="modal">Tutup</button>
+                        <button type="submit" form="jabatanForm" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -161,7 +161,13 @@
         </div>
     @endif
     @include('Jabatan.modal')
-
     <script src="js/modal_hapus_jabatan.js"></script>
     <script src="js/pencarian.js"></script>
+    <script>
+        $(document).ready(function() {
+            @if ($errors->any())
+                $('#modal_jabatan').modal('show');
+            @endif
+        });
+    </script>
 @endsection

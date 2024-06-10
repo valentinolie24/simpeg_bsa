@@ -356,19 +356,19 @@
                                     data-tanggal-masuk="{{ $calon_pegawai->pengumuman_akhir->tanggal_masuk }}">
                                     <div class="countdown-item">
                                         <span class="countdown-timer" id="days"></span>
-                                        <span class="countdown-label">Days</span>
+                                        <span class="countdown-label">Hari</span>
                                     </div>
                                     <div class="countdown-item">
                                         <span class="countdown-timer" id="hours"></span>
-                                        <span class="countdown-label">Hours</span>
+                                        <span class="countdown-label">Jam</span>
                                     </div>
                                     <div class="countdown-item">
                                         <span class="countdown-timer" id="minutes"></span>
-                                        <span class="countdown-label">Minutes</span>
+                                        <span class="countdown-label">Menit</span>
                                     </div>
                                     <div class="countdown-item">
                                         <span class="countdown-timer" id="seconds"></span>
-                                        <span class="countdown-label">Seconds</span>
+                                        <span class="countdown-label">Detik</span>
                                     </div>
                                 </div>
                                 <script>
@@ -394,6 +394,7 @@
                                                 clearInterval(countdownInterval);
                                                 countdownDiv.innerHTML = "<div>Waktu sudah tiba!</div>";
                                                 window.location.href = "{{ route('pegawai.index') }}";
+
                                             }
                                         }, 1000);
                                     });
