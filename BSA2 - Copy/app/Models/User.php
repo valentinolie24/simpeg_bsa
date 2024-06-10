@@ -80,4 +80,8 @@ class User extends Authenticatable
         return $this->hasOne(PengumumanAkhir::class);
     }
 
+    public function pegawai()
+    {
+        return $this->hasOne(Pegawai::class);
+    }
 }

@@ -1,4 +1,7 @@
 @extends('../layout/' . $layout)
+@section('subhead')
+    <title>Jabatan</title>
+@endsection
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">Halaman Jabatan</h2>

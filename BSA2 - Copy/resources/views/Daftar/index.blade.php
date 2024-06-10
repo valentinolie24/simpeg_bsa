@@ -1,4 +1,7 @@
 @extends('../layout/' . $layout)
+@section('subhead')
+    <title>Daftar</title>
+@endsection
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">Form Pendaftaran</h2>

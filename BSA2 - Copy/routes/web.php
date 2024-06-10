@@ -12,6 +12,8 @@ use App\Http\Controllers\DaftarController;
 use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\TesController;
 use App\Http\Controllers\PengumumanAkhirController;
+use App\Http\Controllers\PromosiController;
+
 
 
 /*
@@ -140,6 +142,9 @@ Route::middleware('auth')->group(function() {
 
     Route::get('jabatan/index', [JabatanController::class, 'index'])->name('jabatan.index');
     Route::resource('jabatan', JabatanController::class);
+    Route::get('promosi/index', [PromosiController::class, 'index'])->name('promosi.index');
+    Route::resource('promosi', PromosiController::class);
+    Route::get('/promosi/jabatan-lain/{pegawaiId}', [PromosiController::class, 'getJabatanLain']);
 });
 
 

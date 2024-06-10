@@ -48,6 +48,14 @@
                                             <div
                                                 class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 py-5">
                                                 <div>
+                                                    <div class="text-slate-500">Tempat Lahir</div>
+                                                    <div class="mt-1">{{ $pegawai->tempat_lahir }}</div>
+                                                </div>
+                                                <i data-lucide="calendar" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                                            </div>
+                                            <div
+                                                class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 py-5">
+                                                <div>
                                                     <div class="text-slate-500">Tanggal Lahir</div>
                                                     <div class="mt-1">{{ $pegawai->ttl }}</div>
                                                 </div>

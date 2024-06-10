@@ -136,6 +136,10 @@ class SideMenu
 
             'promosi' => [
                 'icon' => 'corner-right-up',
+                'route_name' => 'promosi.index',
+                'params' => [
+                    'layout' => 'side-menu',
+                ],
                 'title' => 'Promosi',
             ],
 

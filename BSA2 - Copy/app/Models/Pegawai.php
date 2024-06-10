@@ -8,5 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Pegawai extends Model
 {
     use HasFactory;
-    protected $fillable = ['nik', 'nama', 'alamat', 'ttl', 'jabatan', 'tanggal_masuk', 'pendidikan', 'status', 'agama', 'status_pekerjaan', 'foto'];
+    protected $fillable = ['nik', 'nama', 'alamat', 'tempat_lahir','ttl', 'jabatan', 'tanggal_masuk', 'pendidikan', 'status', 'agama', 'status_pekerjaan', 'foto'];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function promosi()
+    {
+        return $this->hasMany(Promosi::class);
+    }
 }

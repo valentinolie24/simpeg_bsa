@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('agama');
             $table->string('status_pekerjaan');
             $table->string('foto'); // Menambahkan kolom foto
+            
             $table->timestamps();
         });
     }
