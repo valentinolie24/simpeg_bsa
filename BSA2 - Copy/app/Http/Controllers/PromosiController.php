@@ -31,7 +31,7 @@ class PromosiController extends Controller
         //
         $pageTitle = 'Tambah Promosi';
         $pegawai = Pegawai::all();
-         $jabatans = Jabatan::all();
+        $jabatans = Jabatan::all();
         return view('promosi.create', compact('pegawai', 'jabatans', 'pageTitle'));
     }
 
@@ -44,6 +44,25 @@ class PromosiController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'pegawai_id' => 'required',
+            'jabatan_baru' => 'required',
+            'tanggal_promosi' => 'required',
+        ],[
+            'pegawai_id.required' => 'Nama harus dipilih',
+            'jabatan_baru.required' => 'Alamat harus dipilih',
+            'tanggal_promosi.required' => 'Tanggal promosi harus diisi',
+        ]);
+    
+        // Simpan data promosi
+        $promosi = new Promosi();
+        $promosi->pegawai_id = $pegawaiId;
+        $promosi->jabatan_baru = $request->jabatan_baru;
+        $promosi->tanggal_promosi = $request->tanggal_promosi;
+        $pegawai->save();
+    
+        // Redirect dengan pesan sukses
+        return redirect()->route('promosi.index')->with('success', 'Data promosi berhasil disimpan');
     }
 
     /**

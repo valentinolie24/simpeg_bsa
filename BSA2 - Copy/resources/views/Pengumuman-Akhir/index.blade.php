@@ -394,7 +394,7 @@
                                                 clearInterval(countdownInterval);
                                                 countdownDiv.innerHTML = "<div>Waktu sudah tiba!</div>";
                                                 window.location.href = "{{ route('pegawai.index') }}";
-
+                                                /.
                                             }
                                         }, 1000);
                                     });

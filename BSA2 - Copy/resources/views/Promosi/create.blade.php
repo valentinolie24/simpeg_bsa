@@ -20,8 +20,11 @@
                                 <div class="grid grid-cols-12 gap-x-5">
                                     <div class="col-span-12 2xl:col-span-6">
                                         <div class="mt-3">
-                                            <label for="pegawai_id" class="form-label">Nama Pegawai <span
-                                                    class="text-danger">*</span></label>
+                                            <label for="pegawai_id"
+                                                class="w-full flex flex-col sm:flex-row gap-2 form-label">Nama Pegawai
+                                                <span class="text-danger">*</span>
+                                                <span
+                                                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span></label>
                                             <select id="pegawai_id" name="pegawai_id"
                                                 class="tom-select form-control @error('pegawai_id') border-danger @enderror">
                                                 <option selected disabled hidden value="">Pilih Pegawai</option>
@@ -34,12 +37,16 @@
                                             @enderror
                                         </div>
                                         <div class="mt-3">
-                                            <label for="jabatan_lama" class="form-label">Jabatan Lama</label>
+                                            <label for="jabatan_lama"
+                                                class="w-full flex flex-col sm:flex-row gap-2 form-label">Jabatan Lama
+                                                <span class="text-danger">*</span><span
+                                                    class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span></label>
                                             <input id="jabatan_lama" type="text" class="form-control" disabled>
                                         </div>
                                         <div class="input-form mt-3">
-                                            <label for="jabatan_baru" class="form-label w-full flex flex-col sm:flex-row">
-                                                Jabatan Baru<span
+                                            <label for="jabatan_baru"
+                                                class="form-label w-full flex flex-col sm:flex-row gap-2">
+                                                Jabatan Baru <span class="text-danger">*</span><span
                                                     class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                             </label>
                                             <select id="jabatan_baru" name="jabatan_baru" data-search="true"
@@ -55,14 +62,17 @@
                                                 <div class="text-danger mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+
                                         <div class="input-form mt-3">
                                             <label for="tanggal_promosi"
-                                                class="form-label w-full flex flex-col sm:flex-row">
-                                                Tanggal Promosi <span
+                                                class="form-label w-full flex flex-col sm:flex-row gap-2">
+                                                Tanggal Promosi
+                                                <span class="text-danger">*</span><span
                                                     class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                             </label>
                                             <input type="datetime-local" name="tanggal_promosi" class="form-control"
-                                                id="tanggal_promosi" required>
+                                                id="tanggal_promosi" w-full flex flex-col sm:flex-row gap-2 form-label>
                                             <script>
                                                 document.addEventListener('DOMContentLoaded', function() {
                                                     var tanggalMasukInput = document.getElementById('tanggal_promosi');
