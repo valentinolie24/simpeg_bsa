@@ -9,24 +9,28 @@
     </div>
 
     <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-5">
-        <button id="btn_tambah" class="btn btn-primary" style="width: 150px; height: 40px;">Tambah
-            User</button>
+        @if (auth()->user()->role == 'sdm')
+            <button id="btn_tambah" class="btn btn-primary" style="width: 150px; height: 40px;">Tambah
+                User</button>
+        @endif
         <div class="hidden md:block mx-auto text-slate-500">
 
         </div>
 
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <form action="{{ route('cari') }}" method="get" id="form_pencarian" class="xl:flex sm:mr-auto">
-                <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
-                    <input id="nama_pencarian" name="nama_pencarian" type="text"
-                        class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Cari Pegawai...">
-                </div>
-                <div class="mt-2 xl:mt-0">
-                    <button class="btn btn-primary shadow-md mr-2">Cari</button>
-                    <a type="button" id="reset_pencarian" href="{{ route('pegawai.index') }}"
-                        class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Reset</a>
-                </div>
-            </form>
+            @if (auth()->user()->role == 'sdm')
+                <form action="{{ route('cari') }}" method="get" id="form_pencarian" class="xl:flex sm:mr-auto">
+                    <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+                        <input id="nama_pencarian" name="nama_pencarian" type="text"
+                            class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Cari Pegawai...">
+                    </div>
+                    <div class="mt-2 xl:mt-0">
+                        <button class="btn btn-primary shadow-md mr-2">Cari</button>
+                        <a type="button" id="reset_pencarian" href="{{ route('pegawai.index') }}"
+                            class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Reset</a>
+                    </div>
+                </form>
+            @endif
             <div class="container mt-5">
                 <div class="row">
                     <div class="col-md-12">
@@ -251,7 +255,7 @@
                                 <hr class="dropdown-divider">
                             </li>
                             <li>
-                                @if (isset($pegawai) && $pegawai !== null)
+                                @if ($pegawai == null)
                                     <a href="{{ route('pegawai.create') }}" class="dropdown-item">
                                         <i data-lucide="edit" class="w-4 h-4 mr-2"></i> Ubah Data
                                     </a>

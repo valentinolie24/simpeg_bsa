@@ -145,6 +145,10 @@ class SideMenu
 
             'demosi' => [
                 'icon' => 'corner-right-down',
+                'route_name' => 'demosi.index',
+                'params' => [
+                    'layout' => 'side-menu',
+                ],
                 'title' => 'Demosi',
             ],
 

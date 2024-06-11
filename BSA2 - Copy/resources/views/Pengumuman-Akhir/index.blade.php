@@ -154,9 +154,14 @@
                                                 method="POST">
                                                 @csrf
                                                 <div class="flex items-center">
-                                                    <textarea name="catatan" class="form-control" placeholder="Masukkan catatan" rows="2"></textarea>
+                                                    <textarea id="catatan_{{ $pegawai->pengumuman_akhir->id }}" name="catatan_{{ $pegawai->pengumuman_akhir->id }}"
+                                                        class="form-control @error('catatan_' . $pegawai->pengumuman_akhir->id) border-danger @enderror"
+                                                        placeholder="Masukkan catatan" rows="2"></textarea>
                                                     <button type="submit" class="btn btn-primary ml-3">Simpan</button>
                                                 </div>
+                                                @error('catatan_' . $pegawai->pengumuman_akhir->id)
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                                @enderror
                                             </form>
                                         @endif
                                     @else
@@ -173,6 +178,7 @@
                                     @endif
                                 @endif
                             </td>
+
                             <td class="table-report__action w-86 text-center" style="width: 200px;">
                                 @if ($pegawai->pengumuman_akhir && $pegawai->pengumuman_akhir->catatan)
                                     @if ($pegawai->pengumuman_akhir->status_akhir == 'Diterima')
@@ -394,7 +400,6 @@
                                                 clearInterval(countdownInterval);
                                                 countdownDiv.innerHTML = "<div>Waktu sudah tiba!</div>";
                                                 window.location.href = "{{ route('pegawai.index') }}";
-                                                /.
                                             }
                                         }, 1000);
                                     });

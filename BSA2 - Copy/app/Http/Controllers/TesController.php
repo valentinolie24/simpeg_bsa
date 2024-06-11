@@ -146,24 +146,46 @@ class TesController extends Controller
     }
     
     
+    // public function saveNote(Request $request, $id)
+    // {
+    //     $request->validate([
+    //         'catatan' => 'required|string|max:1000',
+    //     ], [
+    //         'catatan.required' => 'Catatan harus diisi',
+    //         'catatan.max' => 'Catatan maksimal 1000 karakter',
+    //     ]);
+    
+    //     // Ambil user_id dari entri tes dengan id yang diberikan
+    //     $tes = Tes::findOrFail($id);
+    //     $user_id = $tes->user_id;
+    
+    //     // Perbarui semua entri tes yang sesuai dengan user_id
+    //     Tes::where('user_id', $user_id)->update(['catatan' => $request->input('catatan')]);
+    
+    //     return redirect()->route('tes.index')->with('success', 'Catatan berhasil disimpan.');
+    // }
+
     public function saveNote(Request $request, $id)
     {
+        // Ambil ID tes dari request dan sesuaikan nama inputnya
+        $inputName = 'catatan_' . $id;
+        
+        // Validasi input dengan nama yang dinamis
         $request->validate([
-            'catatan' => 'required|string|max:1000',
+            $inputName => 'required|string|max:1000',
         ], [
-            'catatan.required' => 'Catatan harus diisi',
-            'catatan.max' => 'Catatan maksimal 1000 karakter',
+            $inputName . '.required' => 'Catatan harus diisi',
+            $inputName . '.max' => 'Catatan maksimal 1000 karakter',
         ]);
-    
-        // Ambil user_id dari entri tes dengan id yang diberikan
+
+        // Cari entri tes berdasarkan ID dan update catatan
         $tes = Tes::findOrFail($id);
-        $user_id = $tes->user_id;
-    
-        // Perbarui semua entri tes yang sesuai dengan user_id
-        Tes::where('user_id', $user_id)->update(['catatan' => $request->input('catatan')]);
-    
+        $tes->catatan = $request->input($inputName);
+        $tes->save();
+
         return redirect()->route('tes.index')->with('success', 'Catatan berhasil disimpan.');
     }
+
     
 
 

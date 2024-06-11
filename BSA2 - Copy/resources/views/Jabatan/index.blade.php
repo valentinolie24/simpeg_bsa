@@ -14,14 +14,14 @@
 
         </div>
         <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-            <form action="{{ route('cari_lowongan') }}" method="get" id="form_pencarian" class="xl:flex sm:mr-auto">
+            <form action="{{ route('cari_jabatan') }}" method="get" id="form_pencarian" class="xl:flex sm:mr-auto">
                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
                     <input id="nama_pencarian" name="nama_pencarian" type="text"
                         class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0" placeholder="Cari Jabatan...">
                 </div>
                 <div class="mt-2 xl:mt-0">
                     <button class="btn btn-primary shadow-md mr-2">Cari</button>
-                    <a type="button" id="reset_pencarian" href="{{ route('lowongan.index') }}"
+                    <a type="button" id="reset_pencarian" href="{{ route('jabatan.index') }}"
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1">Reset</a>
                 </div>
             </form>

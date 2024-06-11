@@ -93,16 +93,25 @@ class PengumumanAkhirController extends Controller
 
     public function saveNote(Request $request, $id)
     {
+        // Ambil ID pengumuman_akhir dari request dan sesuaikan nama inputnya
+        $inputName = 'catatan_' . $id;
+        
+        // Validasi input dengan nama yang dinamis
         $request->validate([
-            'catatan' => 'required|string|max:1000',
+            $inputName => 'required|string|max:1000',
+        ], [
+            $inputName . '.required' => 'Catatan harus diisi',
+            $inputName . '.max' => 'Catatan maksimal 1000 karakter',
         ]);
-
-        $pengumumanAkhir = PengumumanAkhir::findOrFail($id);
-        $user_id = $pengumumanAkhir->user_id;
-        PengumumanAkhir::where('user_id', $user_id)->update(['catatan' => $request->input('catatan')]);
-
+    
+        // Cari entri pengumuman_akhir berdasarkan ID dan update catatan
+        $pengumuman_akhir = PengumumanAkhir::findOrFail($id);
+        $pengumuman_akhir->catatan = $request->input($inputName);
+        $pengumuman_akhir->save();
+    
         return redirect()->route('pengumuman-akhir.index')->with('success', 'Catatan berhasil disimpan.');
     }
+    
 
     public function updateTanggalMasuk(Request $request, $id)
     {

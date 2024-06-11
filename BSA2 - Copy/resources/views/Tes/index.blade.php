@@ -256,7 +256,7 @@
                                                 </div>
                                             @endif
                                         </td>
-                                        <td class="table-report__action w-86 text-center">
+                                        {{-- <td class="table-report__action w-86 text-center">
                                             @if (auth()->user()->role == 'sdm')
                                                 @php
                                                     $hasAcceptedOrRejected = false;
@@ -299,7 +299,53 @@
                                             @else
                                                 <p class="text-center">Belum ada catatan</p>
                                             @endif
+                                        </td> --}}
+                                        <td class="table-report__action w-86 text-center">
+                                            @if (auth()->user()->role == 'sdm')
+                                                @php
+                                                    $hasAcceptedOrRejected = false;
+                                                @endphp
+
+                                                @foreach ($pegawai->tes as $tes)
+                                                    @if ($tes->status_tes == 'Diterima' || $tes->status_tes == 'Ditolak')
+                                                        @php
+                                                            $hasAcceptedOrRejected = true;
+                                                            break;
+                                                        @endphp
+                                                    @endif
+                                                @endforeach
+
+                                                @if ($hasAcceptedOrRejected)
+                                                    @php
+                                                        $catatan = $pegawai->tes->firstWhere('catatan', '!=', null);
+                                                    @endphp
+
+                                                    @if ($catatan)
+                                                        {{ $catatan->catatan }}
+                                                    @else
+                                                        <form action="{{ route('tes.saveNote', ['id' => $tes->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            <div class="flex items-center">
+                                                                <textarea id="catatan_{{ $tes->id }}" name="catatan_{{ $tes->id }}"
+                                                                    class="form-control @error('catatan_' . $tes->id) border-danger @enderror" placeholder="Masukkan catatan"
+                                                                    rows="2"></textarea>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary ml-3">Simpan</button>
+                                                            </div>
+                                                            @error('catatan_' . $tes->id)
+                                                                <div class="text-danger mt-1">{{ $message }}</div>
+                                                            @enderror
+                                                        </form>
+                                                    @endif
+                                                @else
+                                                    <p class="text-center">Belum ada catatan</p>
+                                                @endif
+                                            @else
+                                                <p class="text-center">Belum ada catatan</p>
+                                            @endif
                                         </td>
+
 
                                     </tr>
                                 @endif

@@ -1,21 +1,21 @@
 @extends('../layout/' . $layout)
 @section('subhead')
-    <title>Promosi</title>
+    <title>Demosi</title>
 @endsection
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">Halaman Promosi</h2>
+        <h2 class="text-lg font-medium mr-auto">Halaman Demosi</h2>
     </div>
     <div class="grid grid-cols-12 gap-6">
         <div class="col-span-12 lg:col-span-8 2xl:col-span-9">
             <div class="intro-y box lg:mt-5">
                 <div class="flex items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-                    <h2 class="font-medium text-base mr-auto">Tambah Promosi</h2>
+                    <h2 class="font-medium text-base mr-auto">Tambah Demosi</h2>
                 </div>
                 <div class="p-5">
                     <div class="flex flex-col-reverse xl:flex-row flex-col">
                         <div class="flex-1 mt-6 xl:mt-0">
-                            <form action="{{ route('promosi.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('demosi.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="grid grid-cols-12 gap-x-5">
                                     <div class="col-span-12 2xl:col-span-6">
@@ -64,15 +64,15 @@
                                             @enderror
                                         </div>
                                         <div class="input-form mt-3">
-                                            <label for="tanggal_promosi"
+                                            <label for="tanggal_demosi"
                                                 class="form-label w-full flex flex-col sm:flex-row gap-2">
-                                                Tanggal Promosi
+                                                Tanggal Demosi
                                                 <span class="text-danger">*</span><span
                                                     class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                             </label>
-                                            <input type="date" name="tanggal_promosi" id="tanggal_promosi"
-                                                class="form-control w-full flex flex-col sm:flex-row gap-2 form-label @error('tanggal_promosi') border-danger @enderror">
-                                            @error('tanggal_promosi')
+                                            <input type="date" name="tanggal_demosi" id="tanggal_demosi"
+                                                class="form-control w-full flex flex-col sm:flex-row gap-2 form-label @error('tanggal_demosi') border-danger @enderror">
+                                            @error('tanggal_demosi')
                                                 <div class="text-danger mt-1">{{ $message }}</div>
                                             @enderror
                                         </div>

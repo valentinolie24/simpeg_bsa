@@ -39,6 +39,15 @@ class JabatanController extends Controller
         //
     }
 
+    public function Pencarian(Request $request){
+        $Validasi=$request->validate([
+            'nama_pencarian' => 'required'
+        ]);
+
+        $data = Jabatan::where('nama_jabatan', 'LIKE', '%'. $Validasi['nama_pencarian'].'%')->get();
+        return view('jabatan.index')->with('jabatans',$data);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -50,13 +59,14 @@ class JabatanController extends Controller
         //
         $request->validate([
             'kode_jabatan' => 'required|unique:jabatans,kode_jabatan',
-            'nama_jabatan' => 'required',
+            'nama_jabatan' => 'required|unique:jabatans,nama_jabatan',
             'deskripsi_jabatan' => 'required|string|max:1000',
         ],[
             'kode_jabatan.required' => 'Kode jabatan harus diisi',
             'deskripsi_jabatan.required' => 'Deskripsi jabatan harus diisi',
             'nama_jabatan.required' => 'Nama jabatan harus dipilih',
             'kode_jabatan.unique' => 'Kode jabatan sudah ada',
+            'nama_jabatan.unique' => 'Jabatan sudah ada',
         ]);
 
         Jabatan::create([

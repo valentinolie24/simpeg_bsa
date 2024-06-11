@@ -6,107 +6,117 @@ use Illuminate\Http\Request;
 use App\Models\Promosi;
 use App\Models\Pegawai;
 use App\Models\Jabatan;
+use Illuminate\Support\Facades\Auth;
 
 class PromosiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
-        $promosi = Promosi::with('pegawai')->get(); // Mengambil semua data promosi beserta pegawai terkait
+        $user_role = Auth::user()->role;
+        $user_id = Auth::id(); // Get the authenticated user ID
+    
+        if ($user_role == 'sdm') {
+            $promosi = Promosi::with('pegawai')->get();
+        } else {
+            $promosi = Promosi::with('pegawai')
+                ->whereHas('pegawai', function ($query) use ($user_id) {
+                    $query->where('user_id', $user_id); // Use the correct column name
+                })
+                ->get();
+        }
+    
         return view('promosi.index', compact('promosi'));
     }
+    
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
         $pageTitle = 'Tambah Promosi';
         $pegawai = Pegawai::all();
         $jabatans = Jabatan::all();
         return view('promosi.create', compact('pegawai', 'jabatans', 'pageTitle'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
         $request->validate([
             'pegawai_id' => 'required',
+            'jabatan_lama' => 'required',
             'jabatan_baru' => 'required',
             'tanggal_promosi' => 'required',
-        ],[
+        ], [
             'pegawai_id.required' => 'Nama harus dipilih',
-            'jabatan_baru.required' => 'Alamat harus dipilih',
+            'jabatan_baru.required' => 'Jabatan baru harus dipilih',
+            'jabatan_lama.required' => 'Jabatan lama harus diisi',
             'tanggal_promosi.required' => 'Tanggal promosi harus diisi',
         ]);
-    
-        // Simpan data promosi
-        $promosi = new Promosi();
-        $promosi->pegawai_id = $pegawaiId;
-        $promosi->jabatan_baru = $request->jabatan_baru;
-        $promosi->tanggal_promosi = $request->tanggal_promosi;
-        $pegawai->save();
-    
-        // Redirect dengan pesan sukses
+
+        Promosi::create([
+            'pegawai_id' => $request->pegawai_id,
+            'jabatan_lama' => $request->jabatan_lama,
+            'jabatan_baru' => $request->jabatan_baru,
+            'tanggal_promosi' => $request->tanggal_promosi,
+        ]);
+
         return redirect()->route('promosi.index')->with('success', 'Data promosi berhasil disimpan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function accept(Request $request, $id)
     {
-        //
+        $promosi = Promosi::findOrFail($id);
+        $promosi->status_promosi = 'Diterima';
+        $promosi->save();
+
+        // Update jabatan pegawai hanya jika promosi diterima
+        $pegawai = Pegawai::findOrFail($promosi->pegawai_id);
+        $pegawai->jabatan = $promosi->jabatan_baru;
+        $pegawai->save();
+
+        $request->session()->flash('success', 'Promosi pegawai telah diterima');
+        return redirect()->route('promosi.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function reject(Request $request, $id)
     {
-        //
+        $promosi = Promosi::findOrFail($id);
+        $promosi->status_promosi = 'Ditolak';
+        $promosi->save();
+
+        $request->session()->flash('delete', 'Promosi pegawai telah ditolak.');
+        return redirect()->route('promosi.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function saveNote(Request $request, $id)
     {
-        //
+        $inputName = 'catatan_' . $id;
+        $request->validate([
+            $inputName => 'required|string|max:1000',
+        ], [
+            $inputName . '.required' => 'Catatan harus diisi',
+            $inputName . '.max' => 'Catatan maksimal 1000 karakter',
+        ]);
+
+        $promosi = Promosi::findOrFail($id);
+        $promosi->catatan = $request->input($inputName);
+        $promosi->save();
+
+        return redirect()->route('promosi.index')->with('success', 'Catatan berhasil disimpan.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function Pencarian(Request $request)
     {
-        //
+        $request->validate([
+            'nama_pencarian' => 'required'
+        ]);
+    
+        $data = Promosi::with('pegawai')
+            ->whereHas('pegawai', function ($query) use ($request) {
+                $query->where('nama', 'LIKE', '%' . $request->nama_pencarian . '%');
+            })
+            ->get();
+    
+        return view('promosi.index', ['promosi' => $data]);
     }
+    
 }
+

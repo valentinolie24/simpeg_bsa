@@ -13,6 +13,7 @@ use App\Http\Controllers\AdministrasiController;
 use App\Http\Controllers\TesController;
 use App\Http\Controllers\PengumumanAkhirController;
 use App\Http\Controllers\PromosiController;
+use App\Http\Controllers\DemosiController;
 
 
 
@@ -140,9 +141,23 @@ Route::middleware('auth')->group(function() {
 
     Route::get('jabatan/index', [JabatanController::class, 'index'])->name('jabatan.index');
     Route::resource('jabatan', JabatanController::class);
+    Route::get('/cari_jabatan', [JabatanController::class, 'Pencarian'])->name('cari_jabatan');
+
     Route::get('promosi/index', [PromosiController::class, 'index'])->name('promosi.index');
     Route::resource('promosi', PromosiController::class);
     Route::get('/promosi/jabatan-lain/{pegawaiId}', [PromosiController::class, 'getJabatanLain']);
+    Route::patch('/promosi/accept/{id}', [PromosiController::class, 'accept'])->name('promosi.accept');
+    Route::patch('/promosi/reject/{id}', [PromosiController::class, 'reject'])->name('promosi.reject');
+    Route::post('/promosi/save-note/{id}', [PromosiController::class, 'saveNote'])->name('promosi.saveNote');
+    Route::get('/cari_promosi', [PromosiController::class, 'Pencarian'])->name('cari_promosi');
+
+    Route::get('demosi/index', [DemosiController::class, 'inDex'])->name('Demosi.index');
+    Route::resource('demosi', DemosiController::class);
+    Route::get('/demosi/jabatan-lain/{pegawaiId}', [DemosiController::class, 'getJabatanLain']);
+    Route::patch('/demosi/accept/{id}', [DemosiController::class, 'accept'])->name('demosi.accept');
+    Route::patch('/demosi/reject/{id}', [DemosiController::class, 'reject'])->name('demosi.reject');
+    Route::post('/demosi/save-note/{id}', [DemosiController::class, 'saveNote'])->name('demosi.saveNote');
+    Route::get('/cari_demosi', [DemosiController::class, 'Pencarian'])->name('cari_demosi');
 });
 
 Route::get('joblist', [LowonganController::class, 'loker'])->name('lowongan.loker');
