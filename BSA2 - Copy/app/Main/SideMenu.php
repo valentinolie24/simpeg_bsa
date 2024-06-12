@@ -168,9 +168,17 @@ class SideMenu
             ],
 
             'master' => [
-                'icon' => 'user-plus',
+                'icon' => 'settings',
                 'title' => 'Master',
                 'sub_menu' => [
+                    'cabang' => [
+                        'icon' => 'globe',
+                        'route_name' => 'cabang.index',
+                        'params' => [
+                            'layout' => 'side-menu',
+                        ],
+                        'title' => 'Cabang'
+                    ],
                     'jabatan' => [
                         'icon' => 'briefcase',
                         'route_name' => 'jabatan.index',

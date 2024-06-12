@@ -407,6 +407,26 @@
                                                 @enderror
                                             </div>
 
+                                            <div class="input-form mt-3">
+                                                <label for="cabang_id"
+                                                    class="form-label w-full flex flex-col sm:flex-row">
+                                                    Cabang <span
+                                                        class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
+                                                </label>
+                                                <select id="cabang_id" name="cabang_id" data-search="true"
+                                                    class="tom-select w-full mt-2 sm:mr-2 form-control @error('cabang_id') border-danger @enderror"
+                                                    aria-label="Default select example">
+                                                    <option selected disabled hidden value="">Pilih Cabang</option>
+                                                    @foreach ($cabangs as $cabang)
+                                                        <option value="{{ $cabang->id }}">
+                                                            {{ $cabang->nama_cabang }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('cabang_id')
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
                                         </div>
                                         <div class="col-span-12 2xl:col-span-6">
 

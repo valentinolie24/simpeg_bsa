@@ -11,6 +11,7 @@ use App\Models\Daftar;
 use App\Models\Lowongan;
 use App\Models\PengumumanAkhir;
 use App\Models\Jabatan;
+use App\Models\Cabang;
 
 class PegawaiController extends Controller
 {
@@ -24,13 +25,26 @@ class PegawaiController extends Controller
         $user_role = Auth::user()->role;
         $user_id = Auth::user()->id;
 
+        // if ($user_role == 'sdm') {
+        //     $pegawais = Pegawai::whereHas('user', function ($query) {
+        //         $query->where('role', 'pegawai');
+        //     })->get();
+        // } elseif ($user_role == 'pegawai') {
+        //     $pegawai = Pegawai::where('user_id', $user_id)->first();
+        //     $pegawais = $pegawai ? collect([$pegawai]) : collect();
+        // } else {
+        //     $pegawais = collect();
+        // }
+    
+        // return view('pegawai.index', compact('pegawais', 'user_role'));
+
         if ($user_role == 'sdm') {
             // Get all employees associated with the user role 'pegawai'
             $pegawais = Pegawai::whereHas('user', function ($query) {
                 $query->where('role', 'pegawai');
             })->get();
 
-            return view('pegawai.index', compact('pegawais', 'user_role'));
+            return view('pegawai.index', compact('pegawais', 'user_role'));                     // error dihalaman sdm kalau dikomen
         } elseif ($user_role == 'pegawai') {
             // Get the employee associated with the user_id
             $pegawai = Pegawai::where('user_id', $user_id)->first();
@@ -41,12 +55,12 @@ class PegawaiController extends Controller
                 $pegawais = collect([$pegawai]); // Wrap in collection
             }
 
-            return view('pegawai.index', compact('pegawais', 'user_role', 'pegawai'));
+            // return view('pegawai.index', compact('pegawais', 'user_role', 'pegawai'));
         }
 
         // Handle other roles or return default view
         $pegawais = collect();
-        return view('pegawai.index', compact('pegawais', 'user_role'));
+        return view('pegawai.index', compact('pegawais', 'user_role', 'pegawai'));
     }
 
     
@@ -79,6 +93,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
+        $cabangs = Cabang::all();
         $jabatans = Jabatan::all(); // Ambil semua data jabatan
         $user = Auth::user();
     
@@ -96,7 +111,7 @@ class PegawaiController extends Controller
         $namaLowongan = $lowongan ? $lowongan->nama : 'Tidak ada lowongan';
     
         $pageTitle = 'Tambah Pegawai';
-        return view('pegawai.create', compact('user', 'jabatans','lowongan', 'posisi', 'tanggalMasuk', 'namaLowongan', 'pageTitle'));
+        return view('pegawai.create', compact('user', 'jabatans','lowongan', 'posisi', 'tanggalMasuk', 'namaLowongan', 'pageTitle', 'cabangs'));
     }
 
     /**
@@ -106,79 +121,83 @@ class PegawaiController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function store(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'nik' => 'required|unique:pegawais,nik',
-        'nama' => 'required',
-        'alamat' => 'required',
-        'tempat_lahir' => 'required',
-        'ttl' => 'required',
-        'jabatan' => 'required',
-        'tanggal_masuk' => 'required',
-        'pendidikan' => 'required',
-        'status' => 'required',
-        'agama' => 'required',
-        'status_pekerjaan' => 'required',
-        'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-    ],[
-        'foto.image' => 'File yang dimasukkan bukan jenis foto',
-        'foto.mimes' => 'Foto yang dimasukkan harus dengan format JPEG,PNG,JPG!',
-        'foto.max' => 'Ukuran maksimal foto adalah 2MB',
-        'nik.required' => 'NIK harus diisi',
-        'nama.required' => 'Nama harus diisi',
-        'alamat.required' => 'Alamat harus diisi',
-        'tanggal_masuk.required' => 'Tanggal masuk harus diisi',
-        'tempat_lahir.required' => 'Tempat lahir harus diisi',
-        'jabatan.required' => 'Jabatan harus diisi',
-        'pendidikan.required' => 'Pendidikan harus diisi',
-        'status.required' => 'Status harus dipilih',
-        'agama.required' => 'Agama harus dipilih',
-        'status_pekerjaan.required' => 'Status Pekerjaan harus dipilih',
-        'foto.required' => 'Foto harus dipilih',
-        'nik.unique' => 'NIK sudah terdaftar',
-    ]);
-
-    // Jika role bukan pegawai, tambahkan user baru
-    if (auth()->user()->role != 'pegawai') {
-        $user = new User;
-        $user->name = $request->nama;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->noWA = $request->noWA;
-        $user->role = $request->role;
-        $user->save();
+    public function store(Request $request)
+    {
         
-        $userId = $user->id;  // Gunakan user_id dari user yang baru dibuat
-    } else {
-        $userId = auth()->user()->id;  // Gunakan user_id dari user yang login
+        // Validasi input
+        $request->validate([
+            'nik' => 'required|unique:pegawais,nik',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'tempat_lahir' => 'required',
+            'ttl' => 'required',
+            'jabatan' => 'required',
+            'tanggal_masuk' => 'required',
+            'pendidikan' => 'required',
+            // 'cabang_id' => 'required', // kalau dibuat cabang id, pegawai tidak bisa
+            'status' => 'required',
+            'agama' => 'required',
+            'status_pekerjaan' => 'required',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ],[
+            'foto.image' => 'File yang dimasukkan bukan jenis foto',
+            'foto.mimes' => 'Foto yang dimasukkan harus dengan format JPEG,PNG,JPG!',
+            'foto.max' => 'Ukuran maksimal foto adalah 2MB',
+            'nik.required' => 'NIK harus diisi',
+            'nama.required' => 'Nama harus diisi',
+            'alamat.required' => 'Alamat harus diisi',
+            'tanggal_masuk.required' => 'Tanggal masuk harus diisi',
+            'tempat_lahir.required' => 'Tempat lahir harus diisi',
+            'jabatan.required' => 'Jabatan harus diisi',
+            // 'cabang_id.required' => 'Cabang harus diisi',
+            'pendidikan.required' => 'Pendidikan harus diisi',
+            'status.required' => 'Status harus dipilih',
+            'agama.required' => 'Agama harus dipilih',
+            'status_pekerjaan.required' => 'Status Pekerjaan harus dipilih',
+            'foto.required' => 'Foto harus dipilih',
+            'nik.unique' => 'NIK sudah terdaftar',
+        ]);
+    
+        // Jika role bukan pegawai, tambahkan user baru
+        if (auth()->user()->role != 'pegawai') {
+            $user = new User;
+            $user->name = $request->nama;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->noWA = $request->noWA;
+            $user->role = $request->role;
+            $user->save();
+            
+            $userId = $user->id;  // Gunakan user_id dari user yang baru dibuat
+        } else {
+            $userId = auth()->user()->id;  // Gunakan user_id dari user yang login
+        }
+    
+        // Proses foto
+        $foto = time().'.'.$request->foto->extension();  
+        $request->foto->move(public_path('foto'), $foto);
+    
+        // Simpan data pegawai
+        $pegawai = new Pegawai();
+        $pegawai->user_id = $userId;
+        $pegawai->nik = $request->nik;
+        $pegawai->nama = $request->nama;
+        $pegawai->alamat = $request->alamat;
+        $pegawai->tempat_lahir = $request->tempat_lahir;
+        $pegawai->ttl = $request->ttl;
+        $pegawai->jabatan = $request->jabatan;
+        $pegawai->tanggal_masuk = $request->tanggal_masuk;
+        $pegawai->pendidikan = $request->pendidikan;
+        // $pegawai->cabang_id = $request->cabang_id;
+        $pegawai->status = $request->status;
+        $pegawai->agama = $request->agama;
+        $pegawai->status_pekerjaan = $request->status_pekerjaan;
+        $pegawai->foto = $foto;
+        $pegawai->save();
+    
+        // Redirect dengan pesan sukses
+        return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil disimpan');
     }
-
-    // Proses foto
-    $foto = time().'.'.$request->foto->extension();  
-    $request->foto->move(public_path('foto'), $foto);
-
-    // Simpan data pegawai
-    $pegawai = new Pegawai();
-    $pegawai->user_id = $userId;
-    $pegawai->nik = $request->nik;
-    $pegawai->nama = $request->nama;
-    $pegawai->alamat = $request->alamat;
-    $pegawai->tempat_lahir = $request->tempat_lahir;
-    $pegawai->ttl = $request->ttl;
-    $pegawai->jabatan = $request->jabatan;
-    $pegawai->tanggal_masuk = $request->tanggal_masuk;
-    $pegawai->pendidikan = $request->pendidikan;
-    $pegawai->status = $request->status;
-    $pegawai->agama = $request->agama;
-    $pegawai->status_pekerjaan = $request->status_pekerjaan;
-    $pegawai->foto = $foto;
-    $pegawai->save();
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('pegawai.index')->with('success', 'Data pegawai berhasil disimpan');
-}
     // public function store(Request $request)
     // {
     // // Validasi input menggunakan Validator

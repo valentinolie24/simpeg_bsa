@@ -69,11 +69,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tes::class);
     }
-    
-    public function wawancara()
-    {
-        return $this->hasOne(Wawancara::class);
-    }
 
     public function pengumuman_akhir()
     {

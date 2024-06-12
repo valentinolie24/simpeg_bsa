@@ -118,14 +118,12 @@ class JabatanController extends Controller
     {
         //
         $request->validate([
-            'kode_jabatan' => 'required|unique:jabatans,kode_jabatan',
-            'nama_jabatan' => 'required',
+            'kode_jabatan',
+            'nama_jabatan',
             'deskripsi_jabatan' => 'required|string|max:1000',
         ],[
             'kode_jabatan.required' => 'Kode jabatan harus diisi',
             'deskripsi_jabatan.required' => 'Deskripsi jabatan harus diisi',
-            'nama_jabatan.required' => 'Nama jabatan harus dipilih',
-            'kode_jabatan.unique' => 'Kode jabatan sudah ada',
         ]);
     
     

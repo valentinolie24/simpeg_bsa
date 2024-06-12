@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Cabang extends Model
 {
     use HasFactory;
+    protected $fillable = ['nama_cabang', 'deskripsi_cabang'];
 }

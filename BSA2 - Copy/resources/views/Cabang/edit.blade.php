@@ -1,17 +1,17 @@
 @extends('../layout/' . $layout)
 @section('subhead')
-    <title>Jabatan</title>
+    <title>Cabang</title>
 @endsection
 @section('subcontent')
     <div class="intro-y flex items-center mt-8">
-        <h2 class="text-lg font-medium mr-auto">Halaman Jabatan</h2>
+        <h2 class="text-lg font-medium mr-auto">Halaman Cabang</h2>
     </div>
     <div class="intro-y box mt-5">
         <div class="flex flex-col sm:flex-row items-center p-5 border-b border-slate-200/60 dark:border-darkmode-400">
-            <h2 class="font-medium text-base mr-auto">Edit Jabatan</h2>
+            <h2 class="font-medium text-base mr-auto">Edit Cabang</h2>
         </div>
         <div class="p-5">
-            <form action="{{ route('jabatan.update', $jabatan->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('cabang.update', $cabang->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <!-- Tempat untuk formulir pegawai -->
@@ -22,37 +22,25 @@
                                 <div class="card-body">
                                     <!-- BEGIN: Validation Form -->
                                     <div class="input-form mt-3">
-                                        <label for="deskripsi_jabatan" class="form-label w-full flex flex-col sm:flex-row">
-                                            Kode Jabatan<span
+                                        <label for="nama_cabang" class="form-label w-full flex flex-col sm:flex-row">
+                                            Nama Cabang<span
                                                 class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                         </label>
-                                        <input disabled id="kode_jabatan" type="text" name="kode_jabatan"
-                                            class="form-control @error('kode_jabatan') border-danger @enderror"
-                                            value="{{ $jabatan->kode_jabatan }}" minlength="2">
-                                        @error('kode_jabatan')
+                                        <input disabled id="nama_cabang" type="text" name="nama_cabang"
+                                            class="form-control @error('nama_cabang') border-danger @enderror"
+                                            value="{{ $cabang->nama_cabang }}" minlength="2">
+                                        @error('nama_cabang')
                                             <div class="text-danger mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="input-form mt-3">
-                                        <label for="nama_jabatan" class="form-label w-full flex flex-col sm:flex-row">
-                                            Nama Jabatan<span
+                                        <label for="deskripsi_cabang" class="form-label w-full flex flex-col sm:flex-row">
+                                            Deskripsi Cabang<span
                                                 class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                         </label>
-                                        <input disabled id="nama_jabatan" type="text" name="nama_jabatan"
-                                            class="form-control @error('nama_jabatan') border-danger @enderror"
-                                            value="{{ $jabatan->nama_jabatan }}" minlength="2">
-                                        @error('nama_jabatan')
-                                            <div class="text-danger mt-1">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="input-form mt-3">
-                                        <label for="deskripsi_jabatan" class="form-label w-full flex flex-col sm:flex-row">
-                                            Deskripsi Jabatan<span
-                                                class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
-                                        </label>
-                                        <textarea id="deskripsi_jabatan" type="text" name="deskripsi_jabatan"
-                                            class="form-control @error('deskripsi_jabatan') border-danger @enderror" minlength="2">{{ $jabatan->deskripsi_jabatan }}</textarea>
-                                        @error('deskripsi_jabatan')
+                                        <textarea id="deskripsi_cabang" type="text" name="deskripsi_cabang"
+                                            class="form-control @error('deskripsi_cabang') border-danger @enderror" minlength="2">{{ $cabang->deskripsi_cabang }}</textarea>
+                                        @error('deskripsi_cabang')
                                             <div class="text-danger mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -97,7 +85,7 @@
                 await helper.delay(1500)
 
                 // Redirect to register page
-                window.location.href = "{{ route('jabatan.index') }}";
+                window.location.href = "{{ route('cabang.index') }}";
             }
 
             $('#btn_cancel').on('click', function() {
