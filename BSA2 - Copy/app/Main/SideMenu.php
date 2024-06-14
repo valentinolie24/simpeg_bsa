@@ -154,17 +154,29 @@ class SideMenu
 
             'mutasi' => [
                 'icon' => 'repeat',
+                'route_name' => 'mutasi.index',
+                'params' => [
+                    'layout' => 'side-menu',
+                ],
                 'title' => 'Mutasi',
             ],
 
             'reward_punishment' => [
                 'icon' => 'folder',
+                'route_name' => 'rewardpunishment.index',
+                'params' => [
+                    'layout' => 'side-menu',
+                ],
                 'title' => 'Reward & Punishment',
             ],
 
             'phk' => [
                 'icon' => 'user-minus',
-                'title' => 'PHK',
+                'route_name' => 'phkpengundurandiri.index',
+                'params' => [
+                    'layout' => 'side-menu',
+                ],
+                'title' => 'PHK & Pengunduran Diri',
             ],
 
             'master' => [

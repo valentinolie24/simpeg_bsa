@@ -85,14 +85,19 @@
                         <div class="box zoom-in">
                             <div class="flex flex-col lg:flex-row items-center p-5">
                                 <div class="w-24 h-24 lg:w-12 lg:h-12 image-fit lg:mr-1">
-                                    <img class="rounded-full" src="{{ asset('foto/' . $pegawai->foto) }}"
-                                        alt="Foto Pegawai">
+                                    <img class="rounded-full" src="{{ asset('foto/' . $pegawai->foto) }}" alt="Foto Pegawai"
+                                        data-action="zoom">
                                 </div>
                                 <div class="lg:ml-2 lg:mr-auto text-center lg:text-left mt-3 lg:mt-0">
                                     <a href="javascript:;" data-tw-toggle="modal"
                                         data-tw-target="#profil_modal_{{ $pegawai->id }}"
                                         class="font-medium">{{ $pegawai->nama }}</a>
                                     <div class="text-slate-500 text-xs mt-0.5">{{ $pegawai->jabatan }}</div>
+                                    @if (is_null($pegawai->cabang_id))
+                                        <div class="text-red-500 text-xs mt-1">
+                                            Cabang belum ditentukan
+                                        </div>
+                                    @endif
                                 </div>
                                 <div class="flex mt-4 lg:mt-0">
                                     <div class="dropdown ml-3">
@@ -142,7 +147,8 @@
                     <div class="w-20 h-20 sm:w-24 sm:h-24 flex-none image-fit relative"
                         style="height: 150px; width: 150px;">
                         @if (isset($pegawai) && $pegawai->foto)
-                            <img alt="Foto Pegawai" class="rounded-full" src="{{ asset('foto/' . $pegawai->foto) }}">
+                            <img alt="Foto Pegawai" class="rounded-full" src="{{ asset('foto/' . $pegawai->foto) }}"
+                                data-action="zoom">
                         @else
                             <img alt="Default Photo" class="rounded-full" src="{{ asset('dist/images/icon.png') }}">
                         @endif
@@ -237,6 +243,13 @@
                             <div id="nik" class="flex items-center mt-1 whitespace-pre-wrap text-slate-500">
                                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-500 mr-2"></i>
                                 {{ $pegawai->status_pekerjaan ?? 'Belum ada info' }}
+                            </div>
+                        </div>
+                        <div class="flex flex-col mt-3">
+                            <div class="font-bold text-slate-500">Cabang</div>
+                            <div id="nik" class="flex items-center mt-1 whitespace-pre-wrap text-slate-500">
+                                <i data-lucide="globe" class="w-4 h-4 text-slate-500 mr-2"></i>
+                                {{ $pegawai->cabang->nama_cabang ?? 'Belum ada info' }}
                             </div>
                         </div>
                     </div>

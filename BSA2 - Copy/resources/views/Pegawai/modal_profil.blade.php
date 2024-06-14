@@ -101,6 +101,16 @@
                                                 </div>
                                                 <i data-lucide="briefcase" class="w-4 h-4 text-slate-500 ml-auto"></i>
                                             </div>
+                                            <div
+                                                class="flex items-center border-b border-slate-200/60 dark:border-darkmode-400 py-5">
+                                                <div>
+                                                    <div class="text-slate-500">Cabang</div>
+                                                    <div class="mt-1">
+                                                        {{ $pegawai->cabang->nama_cabang ?? 'Belum ada info' }}
+                                                    </div>
+                                                </div>
+                                                <i data-lucide="globe" class="w-4 h-4 text-slate-500 ml-auto"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

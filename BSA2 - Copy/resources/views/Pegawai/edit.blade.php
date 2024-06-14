@@ -28,18 +28,11 @@
                                                     NIK <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <input id="nik" type="text" name="nik" class="form-control"
+                                                <input id="nik" type="text" name="nik"
+                                                    class="form-control @error('nik') border-danger @enderror"
                                                     value="{{ $pegawai->nik }}">
                                                 @error('nik')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="input-form mt-3">
@@ -48,17 +41,10 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <input disabled id="nama" type="text" name="nama"
-                                                    class="form-control" value="{{ $pegawai->nama }}">
+                                                    class="form-control @error('nama') border-danger @enderror"
+                                                    value="{{ $pegawai->nama }}">
                                                 @error('nama')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
 
@@ -170,17 +156,10 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <input id="tempat_lahir" type="text" name="tempat_lahir"
-                                                    class="form-control" value="{{ $pegawai->tempat_lahir }}">
+                                                    class="form-control @error('tempat_lahir') border-danger @enderror"
+                                                    value="{{ $pegawai->tempat_lahir }}">
                                                 @error('tempat_lahir')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -244,17 +223,10 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <input id="pendidikan" type="text" name="pendidikan"
-                                                    class="form-control" value="{{ $pegawai->pendidikan }}">
+                                                    class="form-control @error('tempat_lahir') border-danger @enderror"
+                                                    value="{{ $pegawai->pendidikan }}">
                                                 @error('pendidikan')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="input-form mt-3 w-72">
@@ -296,17 +268,10 @@
                                                     Alamat <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <textarea id="alamat" type="text" name="alamat" class="form-control">{{ $pegawai->alamat }}</textarea>
+                                                <textarea id="alamat" type="text" name="alamat"
+                                                    class="form-control @error('tempat_lahir') border-danger @enderror">{{ $pegawai->alamat }}</textarea>
                                                 @error('alamat')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -330,18 +295,11 @@
                                                     NIK <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <input id="nik" type="text" name="nik" class="form-control"
+                                                <input id="nik" type="text" name="nik"
+                                                    class="form-control @error('nik') border-danger @enderror"
                                                     value="{{ $pegawai->nik }}">
                                                 @error('nik')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                             <div class="input-form mt-3">
@@ -350,17 +308,10 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <input disabled id="nama" type="text" name="nama"
-                                                    class="form-control" value="{{ $pegawai->nama }}">
+                                                    class="form-control @error('nama') border-danger @enderror"
+                                                    value="{{ $pegawai->nama }}">
                                                 @error('nama')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
 
@@ -370,7 +321,8 @@
                                                     Status <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <select id="status" name="status" class="form-select mt-2 sm:mr-2"
+                                                <select id="status" name="status"
+                                                    class="tom-select w-full mt-2 sm:mr-2 form-control"
                                                     aria-label="Default select example">
                                                     <option disabled hidden>Pilih Status</option>
                                                     <option value="Menikah"
@@ -399,7 +351,8 @@
                                                     Agama <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <select id="agama" name="agama" class="form-select mt-2 sm:mr-2"
+                                                <select id="agama" name="agama"
+                                                    class="tom-select w-full mt-2 sm:mr-2 form-control"
                                                     aria-label="Default select example">
                                                     <option disabled hidden>Pilih Agama</option>
                                                     <option value="Islam"
@@ -441,7 +394,8 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <select id="status_pekerjaan" name="status_pekerjaan"
-                                                    class="form-select mt-2 sm:mr-2" aria-label="Default select example">
+                                                    class="tom-select w-full mt-2 sm:mr-2 form-control"
+                                                    aria-label="Default select example">
                                                     <option disabled hidden>Pilih Status Pekerjaan</option>
                                                     <option value="Aktif"
                                                         {{ $pegawai->status_pekerjaan == 'Aktif' ? 'selected' : '' }}>
@@ -492,8 +446,16 @@
                                                     Cabang <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <input disabled id="cabang_id" type="text" name="cabang_id"
-                                                    class="form-control" value="{{ $pegawai->cabang->nama_cabang }}">
+                                                <select id="cabang_id" name="cabang_id" data-search="true"
+                                                    class="tom-select w-full mt-2 sm:mr-2 form-control"
+                                                    aria-label="Default select example">
+                                                    <option selected disabled hidden value="">Pilih Cabang</option>
+                                                    @foreach ($cabangs as $cabang)
+                                                        <option value="{{ $cabang->id }}"
+                                                            {{ $pegawai->cabang_id == $cabang->id ? 'selected' : '' }}>
+                                                            {{ $cabang->nama_cabang }}</option>
+                                                    @endforeach
+                                                </select>
                                                 @error('cabang_id')
                                                     <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
                                                         role="alert">
@@ -567,17 +529,10 @@
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
                                                 <input id="pendidikan" type="text" name="pendidikan"
-                                                    class="form-control" value="{{ $pegawai->pendidikan }}">
+                                                    class="form-control @error('pendidikan') border-danger @enderror"
+                                                    value="{{ $pegawai->pendidikan }}">
                                                 @error('pendidikan')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
 
@@ -621,17 +576,9 @@
                                                     Alamat <span
                                                         class="sm:ml-auto mt-1 sm:mt-0 text-xs text-slate-500">Required</span>
                                                 </label>
-                                                <textarea id="alamat" type="text" name="alamat" class="form-control">{{ $pegawai->alamat }}</textarea>
+                                                <textarea id="alamat" type="text" name="alamat" class="form-control @error('nama') border-danger @enderror">{{ $pegawai->alamat }}</textarea>
                                                 @error('alamat')
-                                                    <div class="alert alert-danger-soft show flex items-center mt-1 mb-2"
-                                                        role="alert">
-                                                        <i data-lucide="alert-octagon"
-                                                            class="w-6 h-6 mr-2"></i>{{ $message }}
-                                                        <button type="button" class="btn-close" data-tw-dismiss="alert"
-                                                            aria-label="Close">
-                                                            <i data-lucide="x" class="w-4 h-4"></i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="text-danger mt-1">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>

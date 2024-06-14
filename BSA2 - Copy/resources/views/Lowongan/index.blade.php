@@ -99,7 +99,8 @@
                     </div>
                     <div class="p-5">
                         <div class="h-40 2xl:h-56 image-fit" style="height: 500px">
-                            <img alt="Foto Lowongan" class="rounded-md" src="{{ asset('foto/' . $lowongan->foto) }}">
+                            <img alt="Foto Lowongan" class="rounded-md" src="{{ asset('foto/' . $lowongan->foto) }}"
+                                data-action="zoom">
                         </div>
                         <a class="block font-medium text-base mt-5">{{ $lowongan->posisi }}</a>
                         <div class="text-slate-600 dark:text-slate-500 mt-2">{{ $lowongan->deskripsi }}

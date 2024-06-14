@@ -14,7 +14,10 @@ use App\Http\Controllers\TesController;
 use App\Http\Controllers\PengumumanAkhirController;
 use App\Http\Controllers\PromosiController;
 use App\Http\Controllers\DemosiController;
+use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\RewardpunishmentController;
+use App\Http\Controllers\PhkPegundurandiriController;
 
 
 
@@ -156,13 +159,44 @@ Route::middleware('auth')->group(function() {
     Route::post('/promosi/save-note/{id}', [PromosiController::class, 'saveNote'])->name('promosi.saveNote');
     Route::get('/cari_promosi', [PromosiController::class, 'Pencarian'])->name('cari_promosi');
 
-    Route::get('demosi/index', [DemosiController::class, 'inDex'])->name('Demosi.index');
+    Route::get('demosi/index', [DemosiController::class, 'inDex'])->name('demosi.index');
     Route::resource('demosi', DemosiController::class);
     Route::get('/demosi/jabatan-lain/{pegawaiId}', [DemosiController::class, 'getJabatanLain']);
     Route::patch('/demosi/accept/{id}', [DemosiController::class, 'accept'])->name('demosi.accept');
     Route::patch('/demosi/reject/{id}', [DemosiController::class, 'reject'])->name('demosi.reject');
     Route::post('/demosi/save-note/{id}', [DemosiController::class, 'saveNote'])->name('demosi.saveNote');
     Route::get('/cari_demosi', [DemosiController::class, 'Pencarian'])->name('cari_demosi');
+
+    // routes/web.php
+
+    Route::get('mutasi/index', [MutasiController::class, 'index'])->name('mutasi.index');
+    Route::resource('mutasi', MutasiController::class);
+    Route::get('/mutasi/cabang-lain/{pegawaiId}', [MutasiController::class, 'getCabangLain']);
+    Route::get('/mutasi/cabang-lama/{pegawaiId}', [MutasiController::class, 'getCabangLama']);
+    Route::patch('/mutasi/accept/{id}', [MutasiController::class, 'accept'])->name('mutasi.accept');
+    Route::patch('/mutasi/reject/{id}', [MutasiController::class, 'reject'])->name('mutasi.reject');
+    Route::post('/mutasi/save-note/{id}', [MutasiController::class, 'saveNote'])->name('mutasi.saveNote');
+    Route::get('/cari_mutasi', [MutasiController::class, 'Pencarian'])->name('cari_mutasi');
+
+    Route::get('rewardpunishment/index', [RewardpunishmentController::class, 'inDex'])->name('rewardpunishment.index');
+    Route::resource('rewardpunishment', RewardpunishmentController::class);
+    Route::post('/rewardpunishment/save-note/{id}', [RewardpunishmentController::class, 'saveNote'])->name('rewardpunishment.saveNote');
+    Route::get('/cari_rewardpunishment', [RewardpunishmentController::class, 'Pencarian'])->name('cari_rewardpunishment');
+
+    Route::get('phkpengundurandiri/index', [PhkPegundurandiriController::class, 'index'])->name('phkpengundurandiri.index');
+    Route::resource('phkpengundurandiri', PhkPegundurandiriController::class);
+    Route::patch('/phkpengundurandiri/accept/{id}', [PhkPegundurandiriController::class, 'accept'])->name('phkpengundurandiri.accept');
+    Route::patch('/phkpengundurandiri/reject/{id}', [PhkPegundurandiriController::class, 'reject'])->name('phkpengundurandiri.reject');
+    Route::post('/phkpengundurandiri/save-note/{id}', [PhkPegundurandiriController::class, 'saveNote'])->name('phkpengundurandiri.saveNote');
+    Route::get('/cari_phkpengundurandiri', [PhkPegundurandiriController::class, 'Pencarian'])->name('cari_phkpengundurandiri');
+
+    // Route::get('mutasi/index', [MutasiController::class, 'inDex'])->name('mutasi.index');
+    // Route::resource('mutasi', MutasiController::class);
+    // Route::get('/mutasi/cabang-lain/{pegawaiId}', [MutasiController::class, 'getCabangLain']);
+    // Route::patch('/mutasi/accept/{id}', [MutasiController::class, 'accept'])->name('mutasi.accept');
+    // Route::patch('/mutasi/reject/{id}', [MutasiController::class, 'reject'])->name('mutasi.reject');
+    // Route::post('/mutasi/save-note/{id}', [MutasiController::class, 'saveNote'])->name('mutasi.saveNote');
+    // Route::get('/cari_mutasi', [MutasiController::class, 'Pencarian'])->name('cari_mutasi');
 });
 
 Route::get('joblist', [LowonganController::class, 'loker'])->name('lowongan.loker');

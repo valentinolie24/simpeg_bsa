@@ -26,8 +26,22 @@ class Pegawai extends Model
         return $this->hasMany(Demosi::class);
     }
 
+    public function rewardpunishment()
+    {
+        return $this->hasMany(rewardpunishment::class);
+    }
+
+    public function phkpengundurandiri()
+    {
+        return $this->hasMany(PhkPengundurandiri::class);
+    }
+
     public function cabang()
     {
         return $this->belongsTo(Cabang::class);
+    }
+    public function mutasi()
+    {
+        return $this->hasMany(Mutasi::class);
     }
 }
